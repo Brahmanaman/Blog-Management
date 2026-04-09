@@ -93,7 +93,7 @@ const Navbar = () => {
 
                     <a
                       onClick={() => navigate("/dashboard")}
-                      className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-gray-100 cursor-pointer"
+                      className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-[#008774] cursor-pointer"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +105,7 @@ const Navbar = () => {
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        class="lucide lucide-layout-dashboard mr-2 h-4 w-4"
+                        className="lucide lucide-layout-dashboard mr-2 h-4 w-4"
                         aria-hidden="true"
                       >
                         <rect width="7" height="9" x="3" y="3" rx="1"></rect>
@@ -120,7 +120,7 @@ const Navbar = () => {
 
                     <div
                       onClick={() => handleLogout()}
-                      className="flex items-center gap-2 px-3 py-2 text-sm rounded-md text-red-500 hover:bg-gray-100 cursor-pointer"
+                      className="flex items-center gap-2 px-3 py-2 text-sm rounded-md text-red-500 hover:bg-[#008774] cursor-pointer"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +132,7 @@ const Navbar = () => {
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        class="lucide lucide-log-out mr-2 h-4 w-4"
+                        className="lucide lucide-log-out mr-2 h-4 w-4"
                         aria-hidden="true"
                       >
                         <path d="m16 17 5-5-5-5"></path>

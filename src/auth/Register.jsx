@@ -3,6 +3,7 @@ import { useBlog } from "../context/BlogContext";
 import { setLocalStorage } from "../utils/localstorage";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import uniqid from "uniqid";
 
 const Register = () => {
   const {
@@ -27,6 +28,7 @@ const Register = () => {
   const navigate = useNavigate();
   let updatedRole = watch("role");
   const formSubmit = (data) => {
+    const id = uniqid();
     let isUserExist = blogUsers.find((user) => user.email === data.email);
     if (isUserExist) {
       reset();
@@ -34,10 +36,11 @@ const Register = () => {
       return;
     }
 
-    let newData = [...blogUsers, data];
+    let newData = [...blogUsers, { ...data, id }];
     setBlogUsers(newData);
 
     let loggedInUserData = {
+      id,
       email: data.email,
       password: data.password,
       name: data.name,

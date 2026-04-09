@@ -9,6 +9,8 @@ import DashboardProtected from "../protectedLayout/DashboardProtected";
 import { Component } from "react";
 import BlogForm from "../components/BlogForm";
 import { Layout } from "../layout/Layout";
+import Dashboard from "../pages/Dashboard";
+import Edit from "../pages/Edit";
 
 const BlogRoute = () => {
   const router = createBrowserRouter([
@@ -19,6 +21,10 @@ const BlogRoute = () => {
         {
           path: "",
           Component: Home,
+        },
+        {
+          path: "blog/:id",
+          Component: BlogForm,
         },
         {
           Component: AuthProtected,
@@ -41,8 +47,12 @@ const BlogRoute = () => {
               Component: Home,
             },
             {
-              path: "blog/:id",
-              Component: BlogForm,
+              path: "dashboard",
+              Component: Dashboard,
+            },
+            {
+              path: "dashboard/new",
+              Component: Edit,
             },
           ],
         },
