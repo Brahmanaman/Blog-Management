@@ -17,7 +17,9 @@ const Login = () => {
   const { blogCurrentUser, setBlogCurrentUser, blogUsers } = useBlog();
   const navigate = useNavigate();
   const formHandler = (data) => {
-    let isUserExist = blogUsers.find((user) => user.email === data.email && user.password === data.password);
+    let isUserExist = blogUsers.find(
+      (user) => user.email === data.email && user.password === data.password,
+    );
     if (!isUserExist) {
       setUserExist(false);
       return;
@@ -47,9 +49,9 @@ const Login = () => {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   className="lucide lucide-pen-line h-6 w-6 text-primary-foreground"
                   aria-hidden="true"
                 >
@@ -60,7 +62,10 @@ const Login = () => {
               <div data-slot="card-title" className="font-semibold text-2xl">
                 Welcome Back
               </div>
-              <div data-slot="card-description" className="text-muted-foreground text-sm">
+              <div
+                data-slot="card-description"
+                className="text-muted-foreground text-sm"
+              >
                 Sign in to your account to continue
               </div>
             </div>
@@ -76,10 +81,7 @@ const Login = () => {
                     data-orientation="vertical"
                     className="group/field flex w-full gap-3 data-[invalid=true]:text-destructive flex-col [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto"
                   >
-                    <label
-                      className="items-center text-sm font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[&gt;[data-slot=field]]:w-full has-[&gt;[data-slot=field]]:flex-col has-[&gt;[data-slot=field]]:rounded-md has-[&gt;[data-slot=field]]:border [&amp;&gt;*]:data-[slot=field]:p-4 has-data-[state=checked]:bg-primary/5 has-data-[state=checked]:border-primary dark:has-data-[state=checked]:bg-primary/10"
-                      for="email"
-                    >
+                    <label className="items-center text-sm font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[&gt;[data-slot=field]]:w-full has-[&gt;[data-slot=field]]:flex-col has-[&gt;[data-slot=field]]:rounded-md has-[&gt;[data-slot=field]]:border [&amp;&gt;*]:data-[slot=field]:p-4 has-data-[state=checked]:bg-primary/5 has-data-[state=checked]:border-primary dark:has-data-[state=checked]:bg-primary/10">
                       Email
                     </label>
                     <input
@@ -89,7 +91,11 @@ const Login = () => {
                       placeholder="you@example.com"
                       type="email"
                     />
-                    {errors.email && <span className="text-destructive">{errors.email.message}</span>}
+                    {errors.email && (
+                      <span className="text-destructive">
+                        {errors.email.message}
+                      </span>
+                    )}
                   </div>
                   <div
                     role="group"
@@ -103,18 +109,29 @@ const Login = () => {
                       Password
                     </label>
                     <input
-                      {...register("password", { required: "Password is required" })}
+                      {...register("password", {
+                        required: "Password is required",
+                      })}
                       className="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
                       id="password"
                       placeholder="Enter your password"
                       type="password"
                     />
-                    {errors.password && <span className="text-destructive">{errors.password.message}</span>}
+                    {errors.password && (
+                      <span className="text-destructive">
+                        {errors.password.message}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
-              <div data-slot="card-footer" className="items-center px-6 [.border-t]:pt-6 flex flex-col gap-4 mt-5">
-                {!userExist && <p className="text-destructive">Invalid email or password</p>}
+              <div
+                data-slot="card-footer"
+                className="items-center px-6 [.border-t]:pt-6 flex flex-col gap-4 mt-5"
+              >
+                {!userExist && (
+                  <p className="text-destructive">Invalid email or password</p>
+                )}
                 <button
                   disabled={!isValid}
                   className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 has-[&gt;svg]:px-3 w-full"
@@ -124,7 +141,10 @@ const Login = () => {
                 </button>
                 <p className="text-center text-sm text-muted-foreground">
                   Don't have an account?{" "}
-                  <NavLink className="text-primary hover:underline" to="/register">
+                  <NavLink
+                    className="text-primary hover:underline"
+                    to="/register"
+                  >
                     Sign up
                   </NavLink>
                 </p>
