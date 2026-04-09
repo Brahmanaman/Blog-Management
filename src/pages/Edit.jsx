@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import uniqid from "uniqid";
 import { useBlog } from "../context/BlogContext";
 import { setLocalStorage } from "../utils/localstorage";
@@ -8,8 +8,31 @@ const Edit = () => {
   const navigate = useNavigate();
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
+  const [editData, setEditData] = useState({
+    authorId: "",
+    authorName: "",
+    content: "",
+    createdAt: "",
+    excerpt: "",
+    id: "",
+    title: "",
+    updatedAt: "",
+    tags: [],
+    published: false,
+  });
   const inputRef = useRef({});
   const { blogCurrentUser, blogPosts, setBlogPosts } = useBlog();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      const data = blogPosts.find((post) => post.id === id);
+      if (data) {
+        setEditData(data);
+        setTags(data.tags || []);
+      }
+    }
+  }, [id, blogPosts]);
 
   const addTag = (e, value) => {
     e.preventDefault();
@@ -26,18 +49,25 @@ const Edit = () => {
   const formHandler = (e, ispublished) => {
     e.preventDefault();
     let obj = {
-      authorId: uniqid(),
+      authorId: id ? editData.authorId : uniqid(),
       authorName: blogCurrentUser.name,
       content: inputRef.current.content.value,
-      createdAt: new Date().toISOString(),
+      createdAt: id ? editData.createdAt : new Date().toISOString(),
       excerpt: inputRef.current.excerpt.value,
-      id: uniqid(),
+      id: id || uniqid(),
       title: inputRef.current.title.value,
       updatedAt: new Date().toISOString(),
       tags: tags,
       published: ispublished,
     };
-    let data = [...blogPosts, obj];
+    let data;
+    if (id) {
+      // Update existing
+      data = blogPosts.map((post) => (post.id === id ? obj : post));
+    } else {
+      // Create new
+      data = [...blogPosts, obj];
+    }
     setBlogPosts(data);
     setLocalStorage("blog_posts", data);
     navigate("/dashboard");
@@ -78,7 +108,7 @@ const Edit = () => {
             className="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6"
           >
             <div data-slot="card-title" className="leading-none font-semibold">
-              Create New Article
+              {id ? "Edit Article" : "Create New Article"}
             </div>
           </div>
           <div data-slot="card-content" className="px-6">
@@ -101,6 +131,10 @@ const Edit = () => {
                   className="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive text-lg"
                   id="title"
                   placeholder="Enter a compelling title..."
+                  value={editData.title}
+                  onChange={(e) =>
+                    setEditData({ ...editData, title: e.target.value })
+                  }
                 />
               </div>
               <div className="group/field flex w-full gap-3 data-[invalid=true]:text-destructive flex-col [&>*]:w-full [&>.sr-only]:w-auto">
@@ -108,6 +142,10 @@ const Edit = () => {
                   Excerpt
                 </label>
                 <textarea
+                  value={editData.excerpt}
+                  onChange={(e) =>
+                    setEditData({ ...editData, excerpt: e.target.value })
+                  }
                   ref={(e) => (inputRef.current.excerpt = e)}
                   className="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                   id="excerpt"
@@ -123,6 +161,10 @@ const Edit = () => {
                   Content
                 </label>
                 <textarea
+                  value={editData.content}
+                  onChange={(e) =>
+                    setEditData({ ...editData, content: e.target.value })
+                  }
                   ref={(e) => (inputRef.current.content = e)}
                   className="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm font-mono text-sm"
                   id="content"
@@ -173,6 +215,7 @@ const Edit = () => {
                     ))}
                   </div>
                   <input
+                    disabled={tags.length >= 5}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") addTag(e, tagInput);
                     }}

@@ -24,9 +24,11 @@ const Home = () => {
         </span>
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {blogPosts.map((post, id) => (
-          <BlogCard key={id} data={post} />
-        ))}
+        {blogPosts
+          .filter((post) => post.published)
+          .map((post, id) => (
+            <BlogCard key={id} data={post} />
+          ))}
       </div>
     </>
   );

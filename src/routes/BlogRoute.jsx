@@ -54,6 +54,10 @@ const BlogRoute = () => {
               path: "dashboard/new",
               Component: Edit,
             },
+            {
+              path: "dashboard/edit/:id",
+              Component: Edit,
+            },
           ],
         },
       ],
