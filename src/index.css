@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+html {
+    color-scheme: light;
+}
+
+html.dark {
+    color-scheme: dark;
+}
+
+html.dark .popup-panel {
+    background-color: #0a0e11;
+}
+
+:root {
+    font-family: "system-ui", sans-serif;
+}
+
+
 @layer properties {
     @supports (((-webkit-hyphens: none)) and (not (margin-trim:inline))) or ((-moz-orient:inline) and (not (color:rgb(from red r g b)))) {
 

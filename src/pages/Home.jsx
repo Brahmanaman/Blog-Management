@@ -3,7 +3,7 @@ import { useBlog } from "../context/BlogContext";
 
 const Home = () => {
   const { blogPosts } = useBlog();
-  const blogLength = blogPosts.length;
+  const blogLength = blogPosts.filter((post) => post.published).length;
   return (
     <>
       <section className="mb-12 text-center">

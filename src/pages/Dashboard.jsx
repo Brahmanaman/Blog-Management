@@ -1,11 +1,14 @@
 import React from "react";
 import { useBlog } from "../context/BlogContext";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import BlogList from "../components/BlogList";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { blogCurrentUser, blogPosts } = useBlog();
+  if (blogCurrentUser.role === "user") {
+    return <Navigate to="/" />;
+  }
   return (
     <>
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

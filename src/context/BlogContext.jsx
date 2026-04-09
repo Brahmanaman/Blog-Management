@@ -17,6 +17,9 @@ export const BlogContext = ({ children }) => {
   const [blogUsers, setBlogUsers] = useState(
     getLocalStorage("blog_users") || [],
   );
+  const [isDarktheme, setIsDarkTheme] = useState(
+    getLocalStorage("isDarkTheme") || false,
+  );
 
   useEffect(() => {
     const existingData = getLocalStorage("blog_posts");
@@ -24,6 +27,15 @@ export const BlogContext = ({ children }) => {
       setLocalStorage("blog_posts", defaultBlogData);
     }
   }, []);
+
+  useEffect(() => {
+    setLocalStorage("isDarkTheme", isDarktheme);
+    if (isDarktheme) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarktheme]);
 
   return (
     <Blog.Provider
@@ -34,6 +46,8 @@ export const BlogContext = ({ children }) => {
         setBlogCurrentUser,
         blogUsers,
         setBlogUsers,
+        isDarktheme,
+        setIsDarkTheme,
       }}
     >
       {children}

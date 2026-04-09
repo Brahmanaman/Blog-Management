@@ -50,7 +50,7 @@ const Login = () => {
           >
             <div
               data-slot="card-header"
-              className="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6 text-center"
+              className="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 [.border-b]:pb-6 text-center"
             >
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary">
                 <svg
@@ -70,28 +70,15 @@ const Login = () => {
                   <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path>
                 </svg>
               </div>
-              <div data-slot="card-title" className="font-semibold text-2xl">
-                Welcome Back
-              </div>
-              <div
-                data-slot="card-description"
-                className="text-muted-foreground text-sm"
-              >
+              <div className="font-semibold text-2xl">Welcome Back</div>
+              <div className="text-muted-foreground text-sm">
                 Sign in to your account to continue
               </div>
             </div>
             <form onSubmit={handleSubmit(formHandler)}>
-              <div data-slot="card-content" className="px-6">
-                <div
-                  data-slot="field-group"
-                  className="group/field-group @container/field-group flex w-full flex-col gap-7 data-[slot=checkbox-group]:gap-3 [&amp;&gt;[data-slot=field-group]]:gap-4"
-                >
-                  <div
-                    role="group"
-                    data-slot="field"
-                    data-orientation="vertical"
-                    className="group/field flex w-full gap-3 data-[invalid=true]:text-destructive flex-col [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto"
-                  >
+              <div className="px-6">
+                <div className="group/field-group @container/field-group flex w-full flex-col gap-7">
+                  <div className="group/field flex w-full gap-3 data-[invalid=true]:text-destructive flex-col [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto">
                     <label className="items-center text-sm font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[&gt;[data-slot=field]]:w-full has-[&gt;[data-slot=field]]:flex-col has-[&gt;[data-slot=field]]:rounded-md has-[&gt;[data-slot=field]]:border [&amp;&gt;*]:data-[slot=field]:p-4 has-data-[state=checked]:bg-primary/5 has-data-[state=checked]:border-primary dark:has-data-[state=checked]:bg-primary/10">
                       Email
                     </label>
