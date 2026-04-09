@@ -57,4 +57,8 @@ const getLocalStorage = (key) => {
     return JSON.parse(localStorage.getItem(key))
 }
 
-export { setLocalStorage, getLocalStorage }
+const clearLocalStorage = (key) => {
+    localStorage.removeItem(key)
+}
+
+export { setLocalStorage, getLocalStorage, clearLocalStorage }

@@ -1,12 +1,16 @@
 import { Outlet, useNavigate } from "react-router";
 import { useBlog } from "../context/BlogContext";
+import { clearLocalStorage } from "../utils/localstorage";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [openPopup, setOpenPopup] = useState(false);
   const navigate = useNavigate();
   const { blogCurrentUser, setBlogCurrentUser } = useBlog();
 
   const handleLogout = () => {
     setBlogCurrentUser(null);
+    clearLocalStorage("blog_current_user");
     navigate("/");
   };
 
@@ -57,15 +61,88 @@ const Navbar = () => {
               </svg>
             </button>
             {blogCurrentUser ? (
-              <div className="flex items-center gap-2">
-                <span className="text-sm">Welcome, {blogCurrentUser.name}</span>
+              <div className="flex items-center gap-2 relative">
                 <button
-                  data-slot="button"
-                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 h-9 px-4 py-2 has-[&gt;svg]:px-3"
-                  onClick={handleLogout}
+                  onClick={() => setOpenPopup(!openPopup)}
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 h-9 px-4 py-2 has-[&gt;svg]:px-3 gap-2"
+                  type="button"
                 >
-                  Logout
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground uppercase">
+                    {blogCurrentUser.name.slice(0, 1)}
+                  </div>
+                  <span className="sm:inline capitalize">
+                    {blogCurrentUser.name}
+                  </span>
                 </button>
+
+                {openPopup && (
+                  <div className="absolute top-8 right-0 mt-2 w-56 rounded-md border bg-white shadow-md z-50 animate-in fade-in zoom-in-95">
+                    <div className="px-3 py-2">
+                      <p className="text-sm font-medium">
+                        {blogCurrentUser.name}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {blogCurrentUser.email}
+                      </p>
+                      <p className="mt-1 text-xs capitalize text-gray-400">
+                        {blogCurrentUser.role}
+                      </p>
+                    </div>
+
+                    <div className="my-1 h-px bg-gray-200" />
+
+                    <a
+                      onClick={() => navigate("/dashboard")}
+                      className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        class="lucide lucide-layout-dashboard mr-2 h-4 w-4"
+                        aria-hidden="true"
+                      >
+                        <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+                        <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+                        <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+                        <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+                      </svg>
+                      Dashboard
+                    </a>
+
+                    <div className="my-1 h-px bg-gray-200" />
+
+                    <div
+                      onClick={() => handleLogout()}
+                      className="flex items-center gap-2 px-3 py-2 text-sm rounded-md text-red-500 hover:bg-gray-100 cursor-pointer"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        class="lucide lucide-log-out mr-2 h-4 w-4"
+                        aria-hidden="true"
+                      >
+                        <path d="m16 17 5-5-5-5"></path>
+                        <path d="M21 12H9"></path>
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                      </svg>
+                      Logout
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="flex items-center gap-2">

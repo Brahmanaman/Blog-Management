@@ -77,7 +77,9 @@ const Register = () => {
                 </svg>
               </div>
               <div className="font-semibold text-2xl">Create an Account</div>
-              <div className="text-muted-foreground text-sm">Join Inkwell to start reading or writing</div>
+              <div className="text-muted-foreground text-sm">
+                Join Inkwell to start reading or writing
+              </div>
             </div>
             <form onSubmit={handleSubmit(formSubmit)}>
               <div data-slot="card-content" className="px-6">
@@ -93,7 +95,9 @@ const Register = () => {
                       placeholder="John Doe"
                       type="text"
                     />
-                    {errors.name && <p className="text-destructive">{errors.name.message}</p>}
+                    {errors.name && (
+                      <p className="text-destructive">{errors.name.message}</p>
+                    )}
                   </div>
                   <div className="group/field flex w-full gap-3 data-[invalid=true]:text-destructive flex-col [&amp;&gt;*]:w-full [&amp;&gt;.sr-only]:w-auto">
                     <label className="items-center text-sm font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[&gt;[data-slot=field]]:w-full has-[&gt;[data-slot=field]]:flex-col has-[&gt;[data-slot=field]]:rounded-md has-[&gt;[data-slot=field]]:border [&amp;&gt;*]:data-[slot=field]:p-4 has-data-[state=checked]:bg-primary/5 has-data-[state=checked]:border-primary dark:has-data-[state=checked]:bg-primary/10">
@@ -106,7 +110,9 @@ const Register = () => {
                       placeholder="you@example.com"
                       type="email"
                     />
-                    {errors.email && <p className="text-destructive">{errors.email.message}</p>}
+                    {errors.email && (
+                      <p className="text-destructive">{errors.email.message}</p>
+                    )}
                   </div>
                   <div
                     data-orientation="vertical"
@@ -128,7 +134,11 @@ const Register = () => {
                       placeholder="Create a password"
                       type="password"
                     />
-                    {errors.password && <p className="text-destructive">{errors.password.message}</p>}
+                    {errors.password && (
+                      <p className="text-destructive">
+                        {errors.password.message}
+                      </p>
+                    )}
                   </div>
                   <div
                     data-orientation="vertical"
@@ -140,14 +150,20 @@ const Register = () => {
                     <input
                       {...register("confirmPassword", {
                         required: true,
-                        validate: (value) => value === watch("password") || "Password do not match",
+                        validate: (value) =>
+                          value === watch("password") ||
+                          "Password do not match",
                       })}
                       className="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
                       id="confirmPassword"
                       placeholder="Confirm your password"
                       type="password"
                     />
-                    {errors.confirmPassword && <p className="text-destructive">{errors.confirmPassword.message}</p>}
+                    {errors.confirmPassword && (
+                      <p className="text-destructive">
+                        {errors.confirmPassword.message}
+                      </p>
+                    )}
                   </div>
                   <div
                     role="group"
@@ -168,7 +184,9 @@ const Register = () => {
                         className={`rounded-lg border-2 p-4 text-center transition-all ${updatedRole === "user" ? "border-primary bg-primary/10" : "border-border hover:border-primary/50"} `}
                       >
                         <p className="font-medium">Reader</p>
-                        <p className="text-xs text-muted-foreground">Read articles</p>
+                        <p className="text-xs text-muted-foreground">
+                          Read articles
+                        </p>
                       </button>
                       <button
                         onClick={() => setValue("role", "author")}
@@ -176,14 +194,18 @@ const Register = () => {
                         className={`rounded-lg border-2 p-4 text-center transition-all ${updatedRole === "author" ? "border-primary bg-primary/10" : "border-border hover:border-primary/50"}`}
                       >
                         <p className="font-medium">Author</p>
-                        <p className="text-xs text-muted-foreground">Write &amp; publish</p>
+                        <p className="text-xs text-muted-foreground">
+                          Write &amp; publish
+                        </p>
                       </button>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="items-center px-6 [.border-t]:pt-6 flex flex-col gap-4 mt-5">
-                {userExist && <p className="text-destructive">User Already Exist</p>}
+                {userExist && (
+                  <p className="text-destructive">User Already Exist</p>
+                )}
                 <button
                   disabled={!isValid}
                   className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 has-[&gt;svg]:px-3 w-full"
@@ -193,7 +215,10 @@ const Register = () => {
                 </button>
                 <p className="text-center text-sm text-muted-foreground">
                   Already have an account?{" "}
-                  <a className="text-primary hover:underline" href="/login">
+                  <a
+                    className="text-primary hover:underline"
+                    onClick={() => navigate("/login")}
+                  >
                     Sign in
                   </a>
                 </p>

@@ -17,15 +17,25 @@ const Login = () => {
   const { blogCurrentUser, setBlogCurrentUser, blogUsers } = useBlog();
   const navigate = useNavigate();
   const formHandler = (data) => {
-    let isUserExist = blogUsers.find(
+    let userData = blogUsers.filter(
       (user) => user.email === data.email && user.password === data.password,
-    );
-    if (!isUserExist) {
+    )[0];
+    if (!userData) {
       setUserExist(false);
       return;
     }
-    setBlogCurrentUser(data);
-    setLocalStorage("blog_current_user", data);
+    setBlogCurrentUser({
+      name: userData.name,
+      email: userData.email,
+      password: userData.password,
+      role: userData.role,
+    });
+    setLocalStorage("blog_current_user", {
+      name: userData.name,
+      email: userData.email,
+      password: userData.password,
+      role: userData.role,
+    });
     reset();
     navigate("/");
   };
