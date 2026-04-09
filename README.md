@@ -1,16 +1,71 @@
-# React + Vite
+# Blog Management
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + Vite blog management application with authentication, dashboard controls, blog creation/editing, and dark mode support.
 
-Currently, two official plugins are available:
+## Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- User authentication and role-based dashboard access
+- Create, edit, publish, unpublish, and delete blog posts
+- Blog preview and detail pages
+- Tag management for posts
+- Dark mode toggle with Tailwind CSS support
+- Local storage persistence for posts, users, and theme preference
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- Vite
+- Tailwind CSS
+- React Router
+- React Markdown
+- React Hook Form
+- `uniqid` for unique IDs
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+Open the app in your browser at the address shown by Vite (usually `http://localhost:5173`).
+
+## Project Structure
+
+- `src/App.jsx` — root application
+- `src/main.jsx` — renders the app and context provider
+- `src/routes/BlogRoute.jsx` — application routes
+- `src/context/BlogContext.jsx` — shared state and local storage persistence
+- `src/components/` — reusable UI components
+- `src/pages/` — page-level views like `Home`, `Dashboard`, `Create`, and `Edit`
+- `src/utils/localstorage.js` — helpers for storing data in `localStorage`
+- `src/index.css` — Tailwind and global styles
+
+## Notes
+
+- The app stores blog data in browser local storage, so refreshing or closing the browser keeps the current posts and user session.
+- Dark mode is toggled in the navbar and stored across sessions.
+- The edit page loads existing post data for updates and saves changes back to local storage.
+
+## Useful Commands
+
+- `npm run dev` — start development server
+- `npm run build` — build production files
+- `npm run preview` — preview production build
+
+## Customization
+
+You can extend the app by adding:
+
+- real backend API integration
+- authentication with tokens
+- server persistence instead of local storage
+- a richer editor for blog content
+- validation for forms and tags
