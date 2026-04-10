@@ -21,6 +21,7 @@ const Edit = () => {
     published: false,
   });
   const inputRef = useRef({});
+  const [errors, setErrors] = useState({});
   const { blogCurrentUser, blogPosts, setBlogPosts } = useBlog();
   const { id } = useParams();
 
@@ -48,6 +49,19 @@ const Edit = () => {
 
   const formHandler = (e, ispublished) => {
     e.preventDefault();
+    if (!inputRef.current.title.value) {
+      setErrors({ title: "Title is required" });
+      return;
+    }
+    if (!inputRef.current.excerpt.value) {
+      setErrors({ excerpt: "Excerpt is required" });
+      return;
+    }
+    if (!inputRef.current.content.value) {
+      setErrors({ content: "Content is required" });
+      return;
+    }
+
     let obj = {
       authorId: id ? editData.authorId : uniqid(),
       authorName: blogCurrentUser.name,
@@ -229,6 +243,9 @@ const Edit = () => {
                     Add up to 5 tags to help readers find your article
                   </p>
                 </div>
+                {Object.entries(errors)?.map(([key, value]) => {
+                  return <p className="text-destructive">{value} </p>;
+                })}
               </div>
               <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:justify-end">
                 <button
